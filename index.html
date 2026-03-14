@@ -12,10 +12,11 @@
         <div class="start-content">
             <div class="start-logo">💔</div>
             <h1 class="start-title">CULPABLE</h1>
-            <p class="start-subtitle">¿Está tu marido siendo infiel?</p>
-            <p class="start-desc">Investiga. Interroga. Descubre la verdad.</p>
+            <p class="start-subtitle"></p>
+            <p class="start-desc"></p>
             <div class="lang-selector" id="lang-selector"></div>
             <button id="btn-start" class="btn-play">COMENZAR</button>
+            <button id="btn-continue" class="btn-continue" style="display:none;">CONTINUAR</button>
         </div>
     </div>
 
@@ -30,18 +31,32 @@
     <!-- Pantalla principal del teléfono -->
     <div id="phone-screen" class="screen">
         <div class="phone">
-            <!-- Barra superior -->
             <div class="status-bar">
                 <span id="clock">21:34</span>
-                <span class="status-icons">📶 🔋</span>
+                <div class="status-right">
+                    <div class="stars-display" id="stars-display">⭐ <span id="star-count">0</span></div>
+                    <span class="status-icons">📶 🔋</span>
+                </div>
+            </div>
+
+            <!-- Vista de capítulos -->
+            <div id="chapters-view" class="view">
+                <div class="view-header">
+                    <h2 id="chapters-title">Capítulos</h2>
+                </div>
+                <div id="chapters-list" class="chapters-list"></div>
             </div>
 
             <!-- Vista de contactos -->
             <div id="contacts-view" class="view active">
                 <div class="view-header">
-                    <h2>Mensajes</h2>
-                    <div id="day-indicator" class="day-indicator">Día 1</div>
+                    <h2 id="contacts-header-title">Mensajes</h2>
+                    <div class="header-right">
+                        <div id="day-indicator" class="day-indicator">Día 1</div>
+                        <div id="chapter-indicator" class="chapter-indicator">Cap. 1</div>
+                    </div>
                 </div>
+                <div id="progress-bar" class="progress-bar"><div id="progress-fill" class="progress-fill"></div></div>
                 <div id="contacts-list" class="contacts-list"></div>
                 <div id="notification-badge" class="notification-badge" style="display:none;">
                     <span id="notif-text"></span>
@@ -70,17 +85,59 @@
             <!-- Vista de evidencias -->
             <div id="evidence-view" class="view">
                 <div class="view-header">
-                    <button id="btn-back-evidence" class="btn-back">←</button>
-                    <h2>Mis Notas</h2>
+                    <h2 id="evidence-header-title">Mis Notas</h2>
                 </div>
                 <div id="evidence-list" class="evidence-list"></div>
+            </div>
+
+            <!-- Vista de ajustes -->
+            <div id="settings-view" class="view">
+                <div class="view-header">
+                    <h2 id="settings-header-title">Ajustes</h2>
+                </div>
+                <div class="settings-list">
+                    <div class="setting-item">
+                        <span id="setting-timer-label">Modo tiempo real</span>
+                        <label class="toggle"><input type="checkbox" id="setting-timer"><span class="toggle-slider"></span></label>
+                    </div>
+                    <div class="setting-item">
+                        <span id="setting-lang-label">Idioma</span>
+                        <div id="setting-lang-btns" class="setting-lang-btns"></div>
+                    </div>
+                    <div class="setting-item">
+                        <button id="btn-new-game" class="btn-danger"></button>
+                    </div>
+                </div>
             </div>
 
             <!-- Barra inferior -->
             <div class="bottom-bar">
                 <button class="tab-btn active" data-tab="contacts">💬<span>Chats</span></button>
                 <button class="tab-btn" data-tab="evidence">🔍<span>Notas</span></button>
+                <button class="tab-btn" data-tab="chapters">📖<span>Caps</span></button>
+                <button class="tab-btn" data-tab="settings">⚙️<span>Ajustes</span></button>
             </div>
+        </div>
+    </div>
+
+    <!-- Overlay de minijuego -->
+    <div id="minigame-overlay" class="screen minigame-overlay">
+        <div class="mg-wrapper">
+            <div class="mg-header">
+                <h3 id="minigame-title"></h3>
+                <button id="mg-skip" class="mg-skip-btn">✕</button>
+            </div>
+            <div id="minigame-container" class="mg-container"></div>
+        </div>
+    </div>
+
+    <!-- Pantalla de transición de capítulo -->
+    <div id="chapter-transition" class="screen">
+        <div class="chapter-transition-content">
+            <div id="ct-chapter-num" class="ct-number"></div>
+            <div id="ct-chapter-title" class="ct-title"></div>
+            <div id="ct-chapter-desc" class="ct-desc"></div>
+            <button id="ct-continue" class="btn-play ct-btn">CONTINUAR</button>
         </div>
     </div>
 
@@ -89,7 +146,19 @@
         <div id="ending-content" class="ending-content"></div>
     </div>
 
+    <!-- Scripts -->
     <script src="i18n.js"></script>
+    <script src="minigames/minigame-engine.js"></script>
+    <script src="minigames/phone-unlock.js"></script>
+    <script src="minigames/memory-match.js"></script>
+    <script src="minigames/photo-puzzle.js"></script>
+    <script src="minigames/social-stalking.js"></script>
+    <script src="minigames/code-breaker.js"></script>
+    <script src="chapters/chapter1.js"></script>
+    <script src="chapters/chapter2.js"></script>
+    <script src="chapters/chapter3.js"></script>
+    <script src="chapters/chapter4.js"></script>
+    <script src="chapters/chapter5.js"></script>
     <script src="game.js"></script>
 </body>
 </html>
