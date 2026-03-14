@@ -1,0 +1,42 @@
+const CACHE_NAME = 'culpable-v2';
+const ASSETS = [
+    '/',
+    '/index.html',
+    '/styles.css',
+    '/i18n.js',
+    '/game.js',
+    '/minigames/minigame-engine.js',
+    '/minigames/phone-unlock.js',
+    '/minigames/memory-match.js',
+    '/minigames/photo-puzzle.js',
+    '/minigames/social-stalking.js',
+    '/minigames/code-breaker.js',
+    '/chapters/chapter1.js',
+    '/chapters/chapter2.js',
+    '/chapters/chapter3.js',
+    '/chapters/chapter4.js',
+    '/chapters/chapter5.js',
+    '/manifest.json'
+];
+
+self.addEventListener('install', e => {
+    e.waitUntil(
+        caches.open(CACHE_NAME).then(cache => cache.addAll(ASSETS))
+    );
+    self.skipWaiting();
+});
+
+self.addEventListener('activate', e => {
+    e.waitUntil(
+        caches.keys().then(keys =>
+            Promise.all(keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k)))
+        )
+    );
+    self.clients.claim();
+});
+
+self.addEventListener('fetch', e => {
+    e.respondWith(
+        caches.match(e.request).then(cached => cached || fetch(e.request))
+    );
+});
